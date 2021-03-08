@@ -1,0 +1,769 @@
+
+
+
+import com.sun.awt.AWTUtilities;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Desktop;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Toolkit;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.effect.Light.Point;
+import javax.swing.BorderFactory;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JPopupMenu;
+import javax.swing.JTable;
+import javax.swing.RowFilter;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
+
+
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ *
+ * @author risin
+ */
+public class home extends javax.swing.JFrame {
+        DefaultTableModel model;
+        File file;
+        Object[] data;
+        Object[] col;
+        ArrayList<Musteri> musteriler;
+        JPopupMenu Menu;
+        JMenuItem updateMenu;
+        double oran;
+    /**
+     * Creates new form home
+     */
+    public home() throws SQLException {
+        initComponents();
+        CenteredFrame(this);
+        slider_koltuk.setValue(1);
+        tabloOlustur();  
+        tablee.getTableHeader().setDefaultRenderer(new HeaderColor());
+        tablee.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD,12));
+        tablee.setRowHeight(25);
+    }
+    static public class HeaderColor extends DefaultTableCellRenderer{
+        public HeaderColor(){
+            setOpaque(true);
+        }
+        public Component getTableCellRendererComponent(JTable tablee,Object value,boolean selected,boolean focused,int row,int column){
+            super.getTableCellRendererComponent(tablee, value, selected, focused, row, column);
+            setBackground(new java.awt.Color(240,230,140));
+            return this;
+        }
+    }
+     public void CenteredFrame(javax.swing.JFrame objFrame){
+        Dimension objDimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int iCoordX = (objDimension.width - objFrame.getWidth()) / 2;
+        int iCoordY = (objDimension.height - objFrame.getHeight()) / 2;
+        objFrame.setLocation(iCoordX, iCoordY); 
+    } 
+     
+    
+    public void tabloOlustur() throws SQLException{
+        model=new DefaultTableModel();
+        col=new Object[7];
+        col[0]="AD";
+        col[1]="SOYAD";
+        col[2]="NUMARA";
+        col[3]="TC";
+        col[4]="BLOK";
+        col[5]="BILET";
+        col[6]="KOLTUK";
+        model.setColumnIdentifiers(col);
+        musteriler=new ArrayList<Musteri>();
+        baglanti bn=new baglanti();
+        musteriler=bn.getMusteri();
+        
+        
+        data=new Object[7];
+        for(int i=0;i<musteriler.size();i++){
+            data[0]=musteriler.get(i).getMusteriAdi();
+            data[1]=musteriler.get(i).getMusteriSoyadi();
+            data[2]=musteriler.get(i).getMusteriNo();
+            data[3]=musteriler.get(i).getMusteriTcKimlik();
+            data[4]=musteriler.get(i).getMusteriBlok();
+            data[5]=musteriler.get(i).getBiletTur();
+            data[6]=musteriler.get(i).getMusteriKoltukNo();
+            model.addRow(data);
+        }
+        oran=(musteriler.size()*100)/40.0;
+        txt_dol.setText("STADYUM DOLULUK ORANI % "+oran);
+        tablee.setModel(model);
+    }
+    public void updateModel() throws SQLException{
+        baglanti bn=new baglanti();
+        DefaultTableModel clear=(DefaultTableModel) tablee.getModel();
+        clear.setRowCount(0);
+        data=new Object[7];
+        musteriler=bn.getMusteri();
+        for(int i=0;i<musteriler.size();i++){
+            data[0]=musteriler.get(i).getMusteriAdi();
+            data[1]=musteriler.get(i).getMusteriSoyadi();
+            data[2]=musteriler.get(i).getMusteriNo();
+            data[3]=musteriler.get(i).getMusteriTcKimlik();
+            data[4]=musteriler.get(i).getMusteriBlok();
+            data[5]=musteriler.get(i).getBiletTur();
+            data[6]=musteriler.get(i).getMusteriKoltukNo();
+            model.addRow(data);  
+        }
+        oran=(musteriler.size()*100)/40.0;
+        txt_dol.setText("STADYUM DOLULUK ORANI % "+oran);
+        tablee.setModel(model);
+        
+    }
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jPanel3 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
+        txt_ad = new javax.swing.JTextField();
+        txt_soyad = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txt_no = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        txt_tc = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        radio1 = new javax.swing.JRadioButton();
+        radio2 = new javax.swing.JRadioButton();
+        jLabel6 = new javax.swing.JLabel();
+        slider_koltuk = new javax.swing.JSlider();
+        lbl_no = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        combobox = new javax.swing.JComboBox<>();
+        tutar = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        btn_bilet = new javax.swing.JButton();
+        txt_dol = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tablee = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        txt_sil = new javax.swing.JTextField();
+        txt_arama = new javax.swing.JTextField();
+        btn_txt = new javax.swing.JButton();
+        btn_txt1 = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
+        jMenu9 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel3.setBackground(new java.awt.Color(200, 255, 238));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(200, 255, 238));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setText("   Ad:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 70, 22));
+        jPanel1.add(txt_ad, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 240, 30));
+        jPanel1.add(txt_soyad, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 50, 240, 30));
+
+        jLabel2.setText(" Soyad:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 71, 22));
+        jPanel1.add(txt_no, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 90, 240, 30));
+
+        jLabel3.setText("Telefon No:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 90, 22));
+        jPanel1.add(txt_tc, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 130, 240, 30));
+
+        jLabel4.setText(" T.C No:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 71, 22));
+
+        jLabel5.setText(" Bilet Türü:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 100, 22));
+
+        buttonGroup1.add(radio1);
+        radio1.setText("Normal Bilet");
+        radio1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radio1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(radio1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, -1));
+
+        buttonGroup1.add(radio2);
+        radio2.setText("Kombine Bilet");
+        radio2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                radio2ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(radio2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 170, -1, -1));
+
+        jLabel6.setText(" Koltuk Numarası:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 110, 22));
+
+        slider_koltuk.setMajorTickSpacing(1);
+        slider_koltuk.setMaximum(10);
+        slider_koltuk.setMinimum(1);
+        slider_koltuk.setMinorTickSpacing(1);
+        slider_koltuk.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                slider_koltukStateChanged(evt);
+            }
+        });
+        jPanel1.add(slider_koltuk, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, 240, -1));
+
+        lbl_no.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        lbl_no.setText("10");
+        jPanel1.add(lbl_no, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 210, 50, 20));
+
+        jLabel7.setText(" Blok:");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 250, 100, 22));
+
+        combobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "A", "B", "C", "D" }));
+        jPanel1.add(combobox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 240, 30));
+
+        tutar.setBackground(new java.awt.Color(255, 0, 255));
+        tutar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        tutar.setText("   ÖDENECEK TUTAR:");
+        jPanel1.add(tutar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 350, 50));
+
+        jPanel3.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 360));
+
+        jButton1.setText("Sil");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 440, 120, 40));
+
+        btn_bilet.setText("Bilet Al");
+        btn_bilet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_biletActionPerformed(evt);
+            }
+        });
+        jPanel3.add(btn_bilet, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 360, 350, 40));
+
+        txt_dol.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        txt_dol.setText("         DOLULUK ORANI:");
+        jPanel3.add(txt_dol, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 440, 480, 80));
+
+        tablee.setBackground(new java.awt.Color(240, 255, 255));
+        tablee.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {},
+                {},
+                {},
+                {}
+            },
+            new String [] {
+
+            }
+        ));
+        tablee.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tablee.setSelectionBackground(new java.awt.Color(237, 57, 95));
+        tablee.getTableHeader().setReorderingAllowed(false);
+        tablee.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                tableeMousePressed(evt);
+            }
+        });
+        jScrollPane2.setViewportView(tablee);
+
+        jPanel3.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(432, 44, 650, 390));
+
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel10.setText("  Silinecek bilet T.C");
+        jPanel3.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 440, 130, 40));
+        jPanel3.add(txt_sil, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 440, 160, 40));
+
+        txt_arama.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_aramaFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                txt_aramaFocusLost(evt);
+            }
+        });
+        txt_arama.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txt_aramaKeyReleased(evt);
+            }
+        });
+        jPanel3.add(txt_arama, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 0, 540, 40));
+
+        btn_txt.setText("TXT AL");
+        btn_txt.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_txtMouseClicked(evt);
+            }
+        });
+        jPanel3.add(btn_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 440, -1, -1));
+
+        btn_txt1.setText("YAZ");
+        btn_txt1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_txt1MouseClicked(evt);
+            }
+        });
+        jPanel3.add(btn_txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 440, -1, -1));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/search_35px.png"))); // NOI18N
+        jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(970, 0, 40, 40));
+
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 1, 1090, 530));
+
+        jMenu1.setText("Blok Bilgi");
+
+        jMenu6.setText("A BLOK");
+        jMenu6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu6MouseClicked(evt);
+            }
+        });
+        jMenu1.add(jMenu6);
+
+        jMenu7.setText("B BLOK");
+        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu7MouseClicked(evt);
+            }
+        });
+        jMenu1.add(jMenu7);
+
+        jMenu8.setText("C BLOK");
+        jMenu8.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu8MouseClicked(evt);
+            }
+        });
+        jMenu1.add(jMenu8);
+
+        jMenu9.setText("D BLOK");
+        jMenu9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu9MouseClicked(evt);
+            }
+        });
+        jMenu1.add(jMenu9);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Yardım");
+
+        jMenu4.setText("İletişim");
+        jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu4MouseClicked(evt);
+            }
+        });
+        jMenu2.add(jMenu4);
+
+        jMenu5.setText("Hakkımda");
+        jMenu5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu5MouseClicked(evt);
+            }
+        });
+        jMenu2.add(jMenu5);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Çıkış");
+        jMenu3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu3MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu3);
+
+        setJMenuBar(jMenuBar1);
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void slider_koltukStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_slider_koltukStateChanged
+        lbl_no.setText(""+slider_koltuk.getValue());
+    }//GEN-LAST:event_slider_koltukStateChanged
+
+    private void btn_biletActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_biletActionPerformed
+        baglanti bag=new baglanti();
+        String bilet=null;
+        String blok=null;
+        if(txt_ad.getText().length()==0 || txt_soyad.getText().length()==0 || txt_no.getText().length()==0 || txt_tc.getText().length()==0){
+            JOptionPane.showMessageDialog(null," BOŞLUKLARI DOLDURUNUZ ! ");
+ 
+        }
+        else{
+              if(radio1.isSelected()==true){ 
+                           bilet="Normal";
+                 }
+            if(radio2.isSelected()==true){ 
+                            bilet="Kombine";
+                 }
+            
+       if(combobox.getSelectedIndex()==0){
+           blok="A";
+       }
+       else if(combobox.getSelectedIndex()==1){
+           blok="B";
+       }
+       else if(combobox.getSelectedIndex()==2){
+           blok="C";
+       }
+       else if(combobox.getSelectedIndex()==3){
+           blok="D";
+       }
+            try {
+                boolean kontrol=bag.addMusteri(txt_ad.getText(),txt_soyad.getText(),txt_no.getText(),txt_tc.getText(),blok,bilet,slider_koltuk.getValue());
+                if(kontrol){
+                updateModel();
+                txt_ad.setText(null);
+                txt_soyad.setText(null);
+                txt_no.setText(null);
+                txt_tc.setText(null);
+                slider_koltuk.setValue(1);
+                buttonGroup1.clearSelection();
+                combobox.setSelectedIndex(0);
+                tutar.setText("ÖDENECEK TUTAR: ");
+                }
+
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
+        }  
+       
+    }//GEN-LAST:event_btn_biletActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        baglanti bag=new baglanti();
+        if(txt_sil.getText().length()==0){
+             JOptionPane.showMessageDialog(null," GEÇERLİ BİR KİMLİK GİRİNİZ ");
+        }
+        else{
+            int res= JOptionPane.showConfirmDialog(null, "SİLMEK İSTEDİĞİNE EMİN MİSİN ? ","DİKKAT !",JOptionPane.YES_NO_OPTION);
+            if(res==0){
+                try {
+                boolean control =bag.removeMusteri(txt_sil.getText());
+                if(control){
+                   JOptionPane.showMessageDialog(null," SİLME İŞLEMİ BAŞARILI "); 
+                   txt_sil.setText(null);
+                   updateModel();
+                }
+                else{
+                    JOptionPane.showMessageDialog(null," İŞLEM BAŞARISIZ "); 
+                }
+            } catch (SQLException ex) {
+               ex.printStackTrace();
+            }
+            }
+            else{
+                JOptionPane.showMessageDialog(null," SİLME İŞLEMİ İPTAL EDİLDİ "); 
+            } 
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txt_aramaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_aramaKeyReleased
+        DefaultTableModel table=(DefaultTableModel)tablee.getModel();
+        String arama=txt_arama.getText();
+        TableRowSorter<DefaultTableModel> tr=new TableRowSorter<DefaultTableModel>(table);
+        tablee.setRowSorter(tr);
+        tr.setRowFilter(RowFilter.regexFilter(arama));
+    }//GEN-LAST:event_txt_aramaKeyReleased
+
+    private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
+       Giris_Ekrani ek=new Giris_Ekrani();
+       ek.setVisible(true);
+       setVisible(false);
+    }//GEN-LAST:event_jMenu3MouseClicked
+
+    private void jMenu6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu6MouseClicked
+       KoltukDurumlari kol = null;
+            try {
+                kol = new KoltukDurumlari();
+            } catch (SQLException ex) {
+                Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+       kol.setVisible(true);
+       setVisible(false);
+    }//GEN-LAST:event_jMenu6MouseClicked
+
+    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
+        KoltukDurumlari2 kol = null;
+            try {
+                kol = new KoltukDurumlari2();
+            } catch (SQLException ex) {
+                Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        kol.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jMenu7MouseClicked
+
+    private void jMenu8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu8MouseClicked
+         KoltukDurumlari3 kol = null;
+            try {
+                kol = new KoltukDurumlari3();
+            } catch (SQLException ex) {
+                Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        kol.setVisible(true);
+        setVisible(false);
+      
+    }//GEN-LAST:event_jMenu8MouseClicked
+
+    private void jMenu9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu9MouseClicked
+         KoltukDurumlari4 kol = null;
+            try {
+                kol = new KoltukDurumlari4();
+            } catch (SQLException ex) {
+                Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        kol.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jMenu9MouseClicked
+
+    private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
+        Iletisim il=new Iletisim();
+        il.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jMenu4MouseClicked
+
+    private void jMenu5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu5MouseClicked
+        Hakkimda hk=new Hakkimda();
+        hk.setVisible(true);
+        setVisible(false);
+    }//GEN-LAST:event_jMenu5MouseClicked
+
+    private void radio1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio1ActionPerformed
+        tutar.setText("ÖDECENEK TUTAR: " + "25" + " TL");
+    }//GEN-LAST:event_radio1ActionPerformed
+
+    private void radio2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radio2ActionPerformed
+        tutar.setText("ÖDECENEK TUTAR: " + "50" + " TL");
+    }//GEN-LAST:event_radio2ActionPerformed
+
+    private void tableeMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableeMousePressed
+        int satir=tablee.getSelectedRow();
+        System.out.println(satir);
+        String ad=tablee.getValueAt(satir, 0).toString();
+        String soyad=tablee.getValueAt(satir, 1).toString();
+        String no=tablee.getValueAt(satir, 2).toString();
+        String tc=tablee.getValueAt(satir, 3).toString();
+        String blok=tablee.getValueAt(satir, 4).toString();
+        String bilet=tablee.getValueAt(satir, 5).toString();
+        String koltuk=tablee.getValueAt(satir, 6).toString();
+        new bilgiAktarma(ad,soyad,no,tc,blok,bilet,koltuk).setVisible(true);
+    }//GEN-LAST:event_tableeMousePressed
+
+    private void btn_txtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txtMouseClicked
+        BufferedWriter bWriter=null;
+            try {
+                file=new File("Musteriler.txt");
+                Desktop d = Desktop.getDesktop();
+                if(!file.exists()){
+                    try {
+                        file.createNewFile();
+                    } catch (IOException ex) {
+                    }
+                }       bWriter = new BufferedWriter(new FileWriter(file,false));
+                 bWriter.write(" Ad"+"  "+" Soyad"+"  "+" No"+"  "+" Tc"+"  "+" Blok"+"  "+" Bilet"+"  "+" Koltuk"+"\n"+"\n");
+                for(int i=0;i<musteriler.size();i++){
+                    String ad=musteriler.get(i).getMusteriAdi();
+                    String soyad=musteriler.get(i).getMusteriSoyadi();
+                    String no=musteriler.get(i).getMusteriNo();
+                    String tc=musteriler.get(i).getMusteriTcKimlik();
+                    String blok=musteriler.get(i).getMusteriBlok();
+                    String bilet=musteriler.get(i).getBiletTur();
+                    String koltuk=String.valueOf(musteriler.get(i).getMusteriKoltukNo());
+                    bWriter.write(ad+" - "+soyad+" - "+no+" - "+tc+" - "+blok+" - "+bilet+" - "+koltuk+"\n");
+                } 
+            d.open(file);
+            }
+            catch (IOException ex) {
+                Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+            } finally {
+                try {
+                    bWriter.close();
+                } catch (IOException ex) {
+                    
+                }
+            }
+    }//GEN-LAST:event_btn_txtMouseClicked
+
+    private void btn_txt1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txt1MouseClicked
+            file=new File("Musteriler.txt");
+            if(!file.exists()){
+                    try {
+                        file.createNewFile();
+                    } catch (IOException ex) {
+                    }
+                } 
+            try {                                      
+                
+                FileReader fReader = null;
+                try {
+                    fReader = new FileReader(file);
+                } catch (FileNotFoundException ex) {
+                    Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                String line;
+                BufferedReader bReader=new BufferedReader(fReader);
+                try {
+                    while((line=bReader.readLine())!=null){
+                        System.out.println(line+"\n");
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                bReader.close();
+                
+                
+                
+            } catch (IOException ex) {
+                Logger.getLogger(home.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+           
+        
+    }//GEN-LAST:event_btn_txt1MouseClicked
+
+    private void txt_aramaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_aramaFocusGained
+         if(txt_arama.getText().equals("Ara")){
+           txt_arama.setText("");
+           txt_arama.setForeground(new Color(0,0,0));
+        }
+    }//GEN-LAST:event_txt_aramaFocusGained
+
+    private void txt_aramaFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_aramaFocusLost
+         if(txt_arama.getText().equals("")){
+            txt_arama.setText("Ara");
+            txt_arama.setForeground(new Color(153,153,153));
+        }
+    }//GEN-LAST:event_txt_aramaFocusLost
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+         
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(home.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                try {
+                    new home().setVisible(true);
+                } catch (SQLException ex) {
+                    System.out.println("Hata");
+                    baglanti.showErrorMessage(ex);
+                }
+               
+            }
+        });
+    }
+    
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_bilet;
+    private javax.swing.JButton btn_txt;
+    private javax.swing.JButton btn_txt1;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> combobox;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenu jMenu9;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lbl_no;
+    private javax.swing.JRadioButton radio1;
+    private javax.swing.JRadioButton radio2;
+    private javax.swing.JSlider slider_koltuk;
+    private javax.swing.JTable tablee;
+    private javax.swing.JLabel tutar;
+    private javax.swing.JTextField txt_ad;
+    private javax.swing.JTextField txt_arama;
+    private javax.swing.JLabel txt_dol;
+    private javax.swing.JTextField txt_no;
+    private javax.swing.JTextField txt_sil;
+    private javax.swing.JTextField txt_soyad;
+    private javax.swing.JTextField txt_tc;
+    // End of variables declaration//GEN-END:variables
+}

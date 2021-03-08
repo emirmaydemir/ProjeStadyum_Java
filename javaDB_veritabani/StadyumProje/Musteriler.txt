@@ -1,0 +1,22 @@
+ Ad   Soyad   No   Tc   Blok   Bilet   Koltuk
+
+Emre - Turan - 5423264566 - 10425423698 - A - Normal - 1
+Kadir - Kartal - 5427856534 - 10523647468 - B - Kombine - 7
+Ahmet - Çalış - 5362456897 - 10632545879 - C - Kombine - 5
+Oğuzhan  - Çalış - 5352785469 - 10523748879 - D - Kombine - 5
+Batikan - Savci - 54687925346 - 10254845789 - B - Normal - 2
+Mert - Tombak - 5479874536 - 10624946789 - A - Kombine - 10
+Emir - Aydemir - 5050424678 - 10327849358 - D - Kombine - 9
+Mustafa - Duman - 5347689567 - 10625865987 - D - Normal - 10
+Semih - Doğan - 5420606573 - 10734576893 - C - Normal - 4
+Mete - Doğan - 5342153245 - 10624846218 - D - Kombine - 3
+Alpay - Demir - 5426739845 - 10724826354 - C - Normal - 10
+Furkan - Çıtlak - 5050605362 - 104 - C - Normal - 3
+Ahmet - Kaplan - 5426744587 - 105321 - B - Normal - 6
+Fatih - Bilgin - 5432124533 - 123 - A - Normal - 8
+Enes - İyimutaf - 5284523624 - 123456 - C - Normal - 7
+Duygu - Tosyalı - 5547896532 - 10625875637 - C - Normal - 1
+Yağmur - Şengül - 5347825678 - 10624842356 - A - Normal - 9
+Deren - Güneş - 5526487598 - 10524635278 - A - Normal - 2
+Sefa - Günsoy - 5524789537 - 10421745891 - A - Normal - 3
+Cansu - Doğan - 5558792365 - 10524832765 - A - Normal - 4
